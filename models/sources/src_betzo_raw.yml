@@ -1,0 +1,18 @@
+﻿version: 2
+
+sources:
+  - name: betzo_raw
+    schema: betzo_raw
+    tables:
+      - name: users
+      - name: deposits
+      - name: withdrawals
+      - name: inout_games_transactions
+      - name: slotegrator_transactions
+      - name: casino_sessions
+      - name: user_statuses
+      - name: promocodes
+      - name: bonuses
+      - name: casino_games
+      - name: currencies_rates
+      - name: user_action_logs

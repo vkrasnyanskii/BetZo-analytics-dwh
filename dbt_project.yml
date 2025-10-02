@@ -1,0 +1,24 @@
+﻿name: betzo_analytics
+version: "1.0"
+config-version: 2
+
+profile: betzo_analytics
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+models:
+  betzo_analytics:
+    +materialized: view
+
+    stg:
+      +schema: stg
+      +materialized: view
+
+    dm:
+      +schema: dm
+      +materialized: table
+
+    bi:
+      +schema: bi
+      +materialized: table

@@ -1,0 +1,7 @@
+# Core dbt
+dbt-core==1.9.10
+dbt-clickhouse[connect]==1.9.3
+
+# Линтер SQL (опционально, но очень полезно)
+sqlfluff==3.0.7
+sqlfluff-templater-dbt==3.0.7
