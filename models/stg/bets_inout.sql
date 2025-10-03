@@ -1,4 +1,4 @@
-ï»¿{{ config(materialized='view', schema='stg') }}
+Ã¯Â»Â¿{{ config(materialized='view', schema='stg') }}
 
 select
   cast(user_id as String)                           as user_id,
@@ -10,7 +10,7 @@ select
   cast(session_id as String)                        as session_id,
   {{ normalize_bet_status('status') }}              as status,
   upper(coalesce(type,'GAME'))                      as type,
-  arrayJoin([transaction_id]) as _txid_norm,        -- �´�»Ñ ï¿½�¾�²�¼�µï¿½Ñ‚�¸�¼�¾ï¿½Ñ‚�¸, �µï¿½�»�¸ �¿�¾�½�°�´�¾�±�¸Ñ‚ï¿½Ñ
+  arrayJoin([transaction_id]) as _txid_norm,        -- ï¿½Â´ï¿½Â»Ã‘Â Ã¯Â¿Â½ï¿½Â¾ï¿½Â²ï¿½Â¼ï¿½ÂµÃ¯Â¿Â½Ã‘â€šï¿½Â¸ï¿½Â¼ï¿½Â¾Ã¯Â¿Â½Ã‘â€šï¿½Â¸, ï¿½ÂµÃ¯Â¿Â½ï¿½Â»ï¿½Â¸ ï¿½Â¿ï¿½Â¾ï¿½Â½ï¿½Â°ï¿½Â´ï¿½Â¾ï¿½Â±ï¿½Â¸Ã‘â€šÃ¯Â¿Â½Ã‘Â
   'inout_games'                                     as aggregator,
   finished, refund_inserted, provider_round_id, round_id,
   _peerdb_synced_at

@@ -1,4 +1,4 @@
-ï»¿{{ config(materialized="table", schema="bi") }}
+Ã¯Â»Â¿{{ config(materialized="table", schema="bi") }}
 
 select
     now64(3)         as ts_utc,

@@ -1,4 +1,4 @@
-﻿with deps as (
+with deps as (
   select toDate(timestamp) as d, sum(amount) as deposit_minor
   from {{ raw('deposits') }}
   group by d

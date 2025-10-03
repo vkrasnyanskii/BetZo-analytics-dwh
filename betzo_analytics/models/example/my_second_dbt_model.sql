@@ -1,4 +1,4 @@
-ï»¿
+Ã¯Â»Â¿
 -- Use the `ref` function to select from other models
 
 select *

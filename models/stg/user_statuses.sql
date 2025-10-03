@@ -1,4 +1,4 @@
-ï»¿{{ config(materialized='view', schema='stg') }}
+Ã¯Â»Â¿{{ config(materialized='view', schema='stg') }}
 
 select
   cast(user_id as String)                 as user_id,

@@ -1,4 +1,4 @@
-ï»¿{{ config(materialized='view', schema='stg') }}
+Ã¯Â»Â¿{{ config(materialized='view', schema='stg') }}
 
 select
   cast(id as String)                     as promocode_id,

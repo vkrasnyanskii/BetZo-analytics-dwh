@@ -1,2 +1,2 @@
-﻿select *
+select *
 from {{ raw('casino_sessions') }}

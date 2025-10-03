@@ -1,4 +1,4 @@
-﻿{% macro norm_ts_i32_to_dt64(col) -%}
+{% macro norm_ts_i32_to_dt64(col) -%}
   toDateTime64({{ col }}, 3, ''UTC'')
 {%- endmacro %}
 

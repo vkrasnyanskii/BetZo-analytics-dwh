@@ -1,4 +1,4 @@
-﻿select distinct
+select distinct
   user_id,
   email,
   date_of_registration,

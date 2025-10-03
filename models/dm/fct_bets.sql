@@ -1,4 +1,4 @@
-ï»¿{{ config(
+Ã¯Â»Â¿{{ config(
     materialized='table',
     schema='dm',
     engine='MergeTree()',
