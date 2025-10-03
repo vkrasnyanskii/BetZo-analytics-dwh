@@ -1,11 +1,15 @@
-{% macro norm_ts_i32_to_dt64(col) -%}
-  toDateTime64({{ col }}, 3, ''UTC'')
+{# приведение статуса к верхнему регистру #}
+{% macro normalize_bet_status(col) -%}
+  upper(toString({{ col }}))
 {%- endmacro %}
 
-{% macro norm_upper(col) -%}
-  upper({{ col }})
-{%- endmacro %}
-
-{% macro norm_money_minor_to_decimal(minor_col) -%}
-  toDecimal128({{ minor_col }} / 100.0, 2)
+{# классификация игрового события по статусу #}
+{% macro classify_bet_status(col) -%}
+  case
+    when upper(toString({{ col }})) in ('BET') then 'STAKE'
+    when upper(toString({{ col }})) in ('WIN') then 'WIN'
+    when upper(toString({{ col }})) in ('LOSE') then 'LOSS'
+    when upper(toString({{ col }})) in ('ROLLBACK') then 'ROLLBACK'
+    else 'OTHER'
+  end
 {%- endmacro %}
