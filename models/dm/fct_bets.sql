@@ -1,9 +1,4 @@
-Ã¯Â»Â¿{{ config(
-    materialized='table',
-    schema='dm',
-    engine='MergeTree()',
-    order_by='(toDate(bet_time), user_id, transaction_id)'
-) }}
+{{ config(materialized="table") }}
 
 with unioned as (
   select * from stg.bets_inout
@@ -12,26 +7,30 @@ with unioned as (
 ),
 dedup as (
   select
-    transaction_id,
-    anyLast(user_id)    as user_id,
-    anyLast(game_id)    as game_id,
-    anyLast(session_id) as session_id,
-    max(event_time)     as event_time,
-    anyLast(status)     as status,
-    argMax(amount, event_time) as amount,
-    anyLast(aggregator) as aggregator
+    *,
+    row_number() over (
+      partition by src, transaction_id, role
+      order by _peerdb_version desc, _peerdb_synced_at desc, bet_time desc
+    ) as rn
   from unioned
-  group by transaction_id
+  where is_deleted = 0
 )
 select
-  user_id,
+  concat(src, ':', transaction_id, ':', role) as bet_id,
   transaction_id,
+  src,
+  user_id,
+  bet_time,
   game_id,
   session_id,
-  event_time as bet_time,
-  if(status='WIN', toDecimal128(0,2), amount) as bet_amount,
-  if(status='WIN', amount, toDecimal128(0,2)) as payout_amount,
+  bonus_id,
   status,
-  aggregator
+  type,
+  role,
+  stake_amount,
+  win_amount,
+  loss_amount,
+  rollback_amount,
+  (win_amount - stake_amount) as net_amount
 from dedup
-
+where rn = 1
